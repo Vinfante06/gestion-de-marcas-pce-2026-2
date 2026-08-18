@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Estados posibles del pipeline de contacto con la marca
+enum EstadoContacto {
+  NO_ACEPTO
+  PRIMER_CONTACTO
+  ESPERANDO_REUNION
+  CONTRATACION_MINUTAS
+  YA_TRABAJO
+}
+
+model Contacto {
+  id             String         @id @default(cuid())
+  nombre         String // se guarda en MAYÚSCULAS
+  telefono       String
+  redSocial      String
+  usuarioRed     String
+  tipoEvento     String
+  categoriaMarca String
+  estado         EstadoContacto
+  fechaRegistro  DateTime       @db.Date
+  creadoEn       DateTime       @default(now())
+  actualizadoEn  DateTime       @updatedAt
+
+  @@map("contactos")
+}

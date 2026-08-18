@@ -1,0 +1,23 @@
+# dependencias
+/node_modules
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+
+# producción
+/build
+
+# variables de entorno (NUNCA subir esto a GitHub)
+.env
+.env.local
+.env*.local
+
+# prisma
+/prisma/dev.db
+
+# sistema
+.DS_Store
+*.pem
+npm-debug.log*
