@@ -9,6 +9,8 @@ interface Props {
   loading: boolean;
   onEdit: (contacto: Contacto) => void;
   onDeleted: () => void;
+  collapsible?: boolean;
+  title?: string;
 }
 
 function fmtFecha(iso: string) {
@@ -18,8 +20,15 @@ function fmtFecha(iso: string) {
   return `${d}/${m}/${y}`;
 }
 
-export default function RecordsTable({ contactos, loading, onEdit, onDeleted }: Props) {
-  const [open, setOpen] = useState(false);
+export default function RecordsTable({
+  contactos,
+  loading,
+  onEdit,
+  onDeleted,
+  collapsible = true,
+  title = "Registros guardados",
+}: Props) {
+  const [open, setOpen] = useState(!collapsible);
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
   async function handleDelete(id: string, nombre: string) {
@@ -39,9 +48,13 @@ export default function RecordsTable({ contactos, loading, onEdit, onDeleted }: 
 
   return (
     <div className="card">
-      <div className={`records-toggle${open ? " open" : ""}`} onClick={() => setOpen(!open)}>
-        <h2>Registros guardados</h2>
-        <span className="chev">▶</span>
+      <div
+        className={`records-toggle${open ? " open" : ""}`}
+        onClick={() => collapsible && setOpen(!open)}
+        style={collapsible ? undefined : { cursor: "default" }}
+      >
+        <h2>{title}</h2>
+        {collapsible && <span className="chev">▶</span>}
       </div>
 
       {open && (
