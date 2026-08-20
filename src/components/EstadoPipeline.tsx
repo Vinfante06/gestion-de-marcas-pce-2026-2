@@ -6,7 +6,6 @@ interface Props {
   value: string | null;
   onChange: (value: string) => void;
 }
-
 export default function EstadoPipeline({ value, onChange }: Props) {
   const selected = ESTADOS.find((e) => e.value === value);
 
